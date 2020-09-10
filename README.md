@@ -41,3 +41,9 @@ gulp-imagemin - Minifierar(filstorlek) av image filer som kan vara av typen JPEG
 
 ## Installation
 
+En installation av remote repository går till på följande sätt.
+
+1. git clone https://github.com/tonytojo/DT173G_module2.git DT173G_m2
+2. cd DT173G_m2
+3. npm install(Här skapas node_modules)
+Notera: Jag kallar target folder för DT173G_m2 men du kan kalla det för vad du vill. Det är alltid bra att ha ett namn som förknippas med innebörden av repositoryt.
