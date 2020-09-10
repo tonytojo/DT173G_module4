@@ -47,3 +47,5 @@ En installation av remote repository går till på följande sätt.
 2. cd DT173G_m2
 3. npm install(Här skapas node_modules)
 Notera: Jag kallar target folder för DT173G_m2 men du kan kalla det för vad du vill. Det är alltid bra att ha ett namn som förknippas med innebörden av repositoryt.
+Du kan också förkorta skrivsättet genom att skriva "npm i" vilket är samma sak som 
+"npm install"
