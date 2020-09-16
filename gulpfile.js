@@ -10,6 +10,10 @@ const cssnano = require("gulp-cssnano");
 const browserSync = require("browser-sync").create();
 const del = require("del");
 const imagemin = require("gulp-imagemin");
+const sass = require('gulp-sass'); 
+sass.compiler = require('node-sass');
+const sourcemaps = require('gulp-sourcemaps');
+
 
 
 //Define an object named files with these members 
@@ -18,7 +22,8 @@ const files = {
    htmlPath: "src/**/*.html",
    cssPath : "src/**/*.css",
    jsPath: "src/**/*.js",
-   imagePath:"src/images/*"
+   imagePath:"src/images/*",
+   sassPath:"src/sass/*.scss"
 }
 
 //Removes the pub folder
@@ -69,6 +74,23 @@ function cssFiles()
 }
 
 //This task is doing the following
+//1. Search for scss files in src/sass folder
+//2. Minify the css files that is now stored in memory
+//3. Add all of these css files to one styles.css
+//4. Place this styles.css in folder pub/css
+//5.run browserSync to open browser
+function sassTask()
+{
+   return src(files.sassPath)
+      .pipe(sourcemaps.init())
+      .pipe(sass({outputStyle:"compressed"}).on('error', sass.logError))
+      .pipe(sourcemaps.write("./maps"))
+      .pipe(concat("styles.css"))
+      .pipe(dest("pub/css"))
+      .pipe(browserSync.stream());
+}
+
+//This task is doing the following
 //1. Search for any kind of image in src/images
 //2. Minify the images
 //3. Add all the images to pub/images
@@ -97,8 +119,8 @@ function serve() {
 //2. If changes are found run copyHTML, jsFiles and cssFiles in parallel
 function watchTask()
 {
-   watch([files.htmlPath, files.jsPath, files.cssPath], 
-      parallel(copyHTML, jsFiles, cssFiles, imageFiles));
+   watch([files.htmlPath, files.jsPath, files.sassPath], 
+      parallel(copyHTML, jsFiles, sassTask, imageFiles));
 }
 
 //Define some tasks as default.
@@ -107,5 +129,5 @@ function watchTask()
 //2. run copyHTML,jsFiles and cssFiles in parallell
 //3. run serve in serie
 exports.default = series(clean,
-   parallel(copyHTML, jsFiles, cssFiles,imageFiles), 
+   parallel(copyHTML, jsFiles, sassTask,imageFiles), 
    serve);
