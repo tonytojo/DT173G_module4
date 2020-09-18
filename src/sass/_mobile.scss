@@ -1,0 +1,17 @@
+//Media query
+@media (max-width:700px){
+   .header{
+      nav{
+         a {
+            font-size:1.05em
+         }
+      };
+   }//end header
+
+   .content {
+      text-align: left;
+       img {
+         display:none;
+      }
+   }
+}

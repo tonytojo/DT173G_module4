@@ -1,5 +1,5 @@
 //This gulp file is continuously looking for any change
-//for html file,JavaScript files or CSS files anywhere in folder src
+//for html file,JavaScript files or SCSS files anywhere in folder src
 
 
 //Include all required modules
@@ -14,19 +14,16 @@ const sass = require('gulp-sass');
 sass.compiler = require('node-sass');
 const sourcemaps = require('gulp-sourcemaps');
 
-
-
 //Define an object named files with these members 
-//htmlPath, cssPath and JavaScript path
+//htmlPath, JavaScript, imagePath or sassPath
 const files = {
    htmlPath: "src/**/*.html",
-   cssPath : "src/**/*.css",
    jsPath: "src/**/*.js",
    imagePath:"src/images/*",
    sassPath:"src/sass/*.scss"
 }
 
-//Removes the pub folder
+//Removes the pub folder completely
 function clean() 
 {
    return del(['pub/']);
@@ -59,26 +56,13 @@ function jsFiles()
 }
 
 //This task is doing the following
-//1. Search for CSS files somewhere in src folder
-//2. Minify the css files that is now stored in memory
-//3. Add all of these css files to one styles.css
-//4. Place this styles.css in folder pub/css
-//5.run browserSync to open browser
-function cssFiles()
-{
-   return src(files.cssPath)
-      .pipe(concat("styles.css"))
-      .pipe(cssnano())
-      .pipe(dest("pub/css"))
-      .pipe(browserSync.stream());
-}
-
-//This task is doing the following
 //1. Search for scss files in src/sass folder
-//2. Minify the css files that is now stored in memory
-//3. Add all of these css files to one styles.css
-//4. Place this styles.css in folder pub/css
-//5.run browserSync to open browser
+//2  sourcemaps keeps the path to the original file
+//3. Minify the css files that is now stored in memory
+//4. Write info about sourcemaps so we know the source file
+//5. Add all of these css files to one styles.css
+//6. Place this styles.css in folder pub/css
+//7. run browserSync to open browser
 function sassTask()
 {
    return src(files.sassPath)

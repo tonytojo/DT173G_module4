@@ -1,0 +1,25 @@
+$font-stack: Arial, Helvetica, sans-serif;
+$primary-color:#0c0c0c; //d3d3d3;
+$nav-color : #a2fba2; //green
+$secondary-color:#add8e6; //blue
+
+//Set text color based om background so it wil be readable
+@function setTextColor($color)
+{
+   @if(lightness($color) > 70)
+   {
+      @return darken($color,55%);
+   }
+   @else
+   {
+      @return lighten($color,55%);
+   }
+}
+
+//Set background-color and text color
+@mixin setBackground($color)
+{
+   background-color: $color;
+   color:setTextColor($color); //Pass in background-color
+}
+

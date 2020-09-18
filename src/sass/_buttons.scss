@@ -1,0 +1,20 @@
+//A template that is used for buttons
+%btn
+{
+   display:inline-block;
+   border-radius: 10px;
+   padding:5px 15px;
+   margin:5px;
+
+   &:hover
+   {
+      transform: scale(.98);
+   }
+}
+
+//Here we style the class btn
+.btn
+{
+   @extend %btn;
+   @include setBackground(lighten($primary-color, 10));
+}
