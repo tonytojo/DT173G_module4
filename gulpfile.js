@@ -54,7 +54,7 @@ function jsFiles()
 {
    return src(files.jsPath)
       .pipe(sourcemaps.init())
-      .pipe(babel({
+       .pipe(babel({
          presets: ['@babel/env']
        }))
       .pipe(concat("main.js"))
@@ -95,15 +95,6 @@ function imageFiles()
     .pipe(dest("pub/images"))
     .pipe(browserSync.stream());
 }
-
-/* function babelTask()
-{
-   return src(files.jsPath)
-   .pipe(babel())
-   .pipe(dest("pub/js"))
-   .pipe(browserSync.stream());
-} */
-
 
  // 1. Initialize browserSync som startar en lokal server öppnar en webbläsare
  // 2. run watch to keep looking for changes(html,js and css)
