@@ -7,6 +7,8 @@ I huvudsak är syftet att förenkla och effektivera utvecklingsarbetet genom att
 
 Att minska fel och misstag och därmed höja kvaliteten
 Att effektivisera vanliga uppgifter för att höja produktiviteten och få mera uträttat till design & programmering.
+I denna momen 4 kommer jag att traspile ES6 to ES5 using Gulp. Detta innbär att ES6 kommer automatiskt att ändras till ES5 genom att använda verktyget Babel.
+npm install --save-dev babel-cli babel-core babel-preset-es2015
 
 #### Automatisering av min utvecklingsmiljö
 

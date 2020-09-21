@@ -13,6 +13,8 @@ const imagemin = require("gulp-imagemin");
 const sass = require('gulp-sass'); 
 sass.compiler = require('node-sass');
 const sourcemaps = require('gulp-sourcemaps');
+const babel= require("gulp-babel");
+//const babel = require("@babel/preset-env");
 
 //Define an object named files with these members 
 //htmlPath, JavaScript, imagePath or sassPath
@@ -41,16 +43,23 @@ function copyHTML()
 }
 
 //This task is doing the following
-//1.Search for JavaScript files somewhere in src folder
-//2.Add all of these JavaScript files to one main.js
-//3.Minify the JavaScript file that is now stored in menory
-//4.Place this main.js in folder pub/js
-//5.run browserSync to open browser
+//1.Search for JavaScript files somewhere in src folde
+//2 sourcemaps keeps the path to the original file
+//3 Transpile ES6 => ES5
+//4 Concat to main.js
+//5.Minify the JavaScript file that is now stored in menory
+//6.Place this main.js in folder pub/js
+//7.run browserSync to open browser
 function jsFiles()
 {
    return src(files.jsPath)
+      .pipe(sourcemaps.init())
+      .pipe(babel({
+         presets: ['@babel/env']
+       }))
       .pipe(concat("main.js"))
       .pipe(uglify())
+      .pipe(sourcemaps.write("."))
       .pipe(dest("pub/js"))
       .pipe(browserSync.stream());
 }
@@ -86,6 +95,14 @@ function imageFiles()
     .pipe(dest("pub/images"))
     .pipe(browserSync.stream());
 }
+
+/* function babelTask()
+{
+   return src(files.jsPath)
+   .pipe(babel())
+   .pipe(dest("pub/js"))
+   .pipe(browserSync.stream());
+} */
 
 
  // 1. Initialize browserSync som startar en lokal server öppnar en webbläsare
